@@ -52,12 +52,20 @@ namespace BLL.Services.Realization
         {
             var item = await UnitOfWork.consumerRepository.GetCompleteEntityAsync(id);
             return mapper.Map<Consumer, ConsumerResponse>(item);
+
         }
 
-        public async Task<PagedList<UnitResponse>> GetUnitsAsync(int Id, UnitParameters parameters)
+        public async Task<IEnumerable<EnergyConsumeResponse>> GetConsumesAsync(int id)
         {
-            var items = await UnitOfWork.consumerRepository.GetUnitsAsync(Id, parameters);
-            return items.Map(mapper.Map<Unit, UnitResponse>);
+            var items = await UnitOfWork.consumerRepository.GetEnergyConsumesAsync(id);
+            return items.Select(mapper.Map<EnergyConsume, EnergyConsumeResponse>);
+
+        }
+
+        public async Task<IEnumerable<UnitResponse>> GetUnitsAsync(int id)
+        {
+            var items = await UnitOfWork.consumerRepository.GetUnitsAsync(id);
+            return items.Select(mapper.Map<Unit, UnitResponse>);
         }
 
         public async Task InsertAsync(ConsumerRequest request)

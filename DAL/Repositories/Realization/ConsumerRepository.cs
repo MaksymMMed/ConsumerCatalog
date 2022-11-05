@@ -3,6 +3,7 @@ using DAL.Exceptions;
 using DAL.Pagination;
 using DAL.Parameters;
 using DAL.Repositories.Interfaces;
+using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -20,18 +21,25 @@ namespace DAL.Repositories.Realization
         {
         }
 
-        public async Task<PagedList<Unit>> GetUnitsAsync(int Id, UnitParameters parameters)
+        public async Task<IEnumerable<EnergyConsume>> GetEnergyConsumesAsync(int id)
         {
+            var Items = await table
+                .Include(x => x.OwnedUnit)
+                .ThenInclude(x => x.ConsumeEnergy)
+                .Where(x => x.Id == id).FirstOrDefaultAsync();
 
-            Consumer consumer = await table.
-                Include(x=>x.OwnedUnit).
-                Where(x => x.Id == Id).FirstAsync();
-            IQueryable<Unit> source = (IQueryable<Unit>)consumer.OwnedUnit;
+            return Items.OwnedUnit.SelectMany(x=>x.ConsumeEnergy) ?? throw new EntityNotFoundException(GetEntityNotFoundErrorMessage(id));
 
-            return await PagedList<Unit>.ToPagedListAsync(
-                source,
-                parameters.PageNumber,
-                parameters.PageSize);
+        }
+
+        public async Task<IEnumerable<Unit>> GetUnitsAsync(int id)
+        {
+            var Items = await table
+                .Include(x => x.OwnedUnit)
+                .Where(x => x.Id == id).FirstOrDefaultAsync();
+
+            return Items?.OwnedUnit ?? throw new EntityNotFoundException(GetEntityNotFoundErrorMessage(id));
+
         }
         public async Task<PagedList<Consumer>> GetAsync(ConsumerParameters parameters)
         {
@@ -76,6 +84,6 @@ namespace DAL.Repositories.Realization
             source = source.Where(item => item.LastName.Contains(LastName));
         }
 
-        
+       
     }
 }

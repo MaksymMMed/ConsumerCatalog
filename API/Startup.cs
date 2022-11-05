@@ -28,7 +28,8 @@ public class Startup
 
         Services.AddTransient<IConsumerService, ConsumerService>();
 
-        Services.AddControllers();
+        Services.AddControllers().AddJsonOptions(x =>
+                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
         Services.AddEndpointsApiExplorer();
         Services.AddSwaggerGen(c =>
         {

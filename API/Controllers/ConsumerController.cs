@@ -1,6 +1,8 @@
-﻿using BLL.DTO.Response;
+﻿using API.Extensions;
+using BLL.DTO.Response;
 using BLL.Services.Interfaces;
 using DAL.Exceptions;
+using DAL.Pagination;
 using DAL.Parameters;
 using DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -46,7 +48,7 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ConsumerResponse>> GetConsumersAync()
+        public async Task<ActionResult<IEnumerable <ConsumerResponse>>> GetConsumersAync()
         {
             try
             {
@@ -62,15 +64,17 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("GetConsumersRep")]
+        [HttpGet("GetConsumersPagedList")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<DAL.Entities.Consumer>> GetConsumersRepAync()
+        public async Task<ActionResult<PagedList<ConsumerResponse>>> GetConsumersPagedListAync([FromQuery] ConsumerParameters parameters)
         {
             try
             {
-                return Ok(await consumerRepository.GetAsync());
+                var item = await consumerService.GetAsync(parameters);
+                Response.Headers.Add("X-Pagination", item.SerializeMetadata());
+                return Ok(item);
             }
             catch (EntityNotFoundException e)
             {
@@ -87,11 +91,31 @@ namespace API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<UnitResponse>> GetUnitsOfConsumer(int id,[FromQuery] UnitParameters parameters)
+        public async Task<ActionResult<IEnumerable<UnitResponse>>> GetUnitsOfConsumer(int id)
         {
             try
             {
-                return Ok(await consumerService.GetUnitsAsync(id,parameters));
+                return Ok(await consumerService.GetUnitsAsync(id));
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new { e.Message });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
+        }
+
+        [HttpGet("GetConsumesOfConsumer")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<EnergyConsumeResponse>>> GetConsumesOfConsumer(int id)
+        {
+            try
+            {
+                return Ok(await consumerService.GetConsumesAsync(id));
             }
             catch (EntityNotFoundException e)
             {

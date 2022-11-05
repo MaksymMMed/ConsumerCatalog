@@ -17,7 +17,8 @@ namespace BLL.Services.Interfaces
     {
         Task<IEnumerable<ConsumerResponse>> GetAsync();
         Task<PagedList<ConsumerResponse>> GetAsync(ConsumerParameters parameters);
-        Task<PagedList<UnitResponse>> GetUnitsAsync(int Id, UnitParameters parameters);
+        Task<IEnumerable<UnitResponse>> GetUnitsAsync(int id);
+        Task<IEnumerable<EnergyConsumeResponse>> GetConsumesAsync(int id);
         Task<ConsumerResponse> GetCompleteEntityById(int id);
         Task<ConsumerResponse> GetByIdAsync(int id);
         Task InsertAsync(ConsumerRequest request);

@@ -16,6 +16,7 @@ namespace DAL.Repositories.Interfaces
     {
 
         public Task<PagedList<Consumer>> GetAsync(ConsumerParameters parameters);
-        public Task<PagedList<Unit>> GetUnitsAsync(int Id, UnitParameters parameters);
+        public Task<IEnumerable<Unit>> GetUnitsAsync(int id);
+        public Task<IEnumerable<EnergyConsume>> GetEnergyConsumesAsync(int id);
     }
 }
