@@ -16,7 +16,7 @@ namespace API.Controllers
         private readonly IConsumerService consumerService;
         private readonly IConsumerRepository consumerRepository;
 
-        public ConsumerController(IConsumerService consumerService)
+        public ConsumerController(IConsumerService consumerService,IConsumerRepository consumerRepository)
         {
             this.consumerService = consumerService;
             this.consumerRepository = consumerRepository;

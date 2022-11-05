@@ -19,6 +19,12 @@ namespace BLL.Services.Realization
         private readonly IUnitOfWork UnitOfWork;
         private readonly IMapper mapper;
 
+        public ConsumerService(IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            UnitOfWork = unitOfWork;
+            this.mapper = mapper;
+        }
+
         public async Task DeleteAsync(int id)
         {
             await UnitOfWork.consumerRepository.DeleteAsync(id);
@@ -27,7 +33,7 @@ namespace BLL.Services.Realization
         public async Task<IEnumerable<ConsumerResponse>> GetAsync()
         {
             var items = await UnitOfWork.consumerRepository.GetAsync();
-            return items.Select(mapper.Map< Consumer, ConsumerResponse>);
+            return items.Select(mapper.Map<Consumer, ConsumerResponse>);
         }
 
         public async Task<PagedList<ConsumerResponse>> GetAsync(ConsumerParameters parameters)

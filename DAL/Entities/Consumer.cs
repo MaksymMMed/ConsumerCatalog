@@ -8,9 +8,13 @@ namespace DAL.Entities
 {
     public class Consumer
     {
+        public Consumer()
+        {
+            OwnedUnit = new();
+        }
         public int Id { get; set; }
         public string? FirstName { get; set; }
         public string? LastName{ get; set; }
-        public List<Unit>? OwnedUnit { get; set; }
+        public virtual List<Unit>? OwnedUnit { get; set; }   
     }
 }

@@ -8,6 +8,10 @@ namespace DAL.Entities
 {
     public class Unit
     {
+        public Unit()
+        {
+            ConsumeEnergy = new();
+        }
         public int Id { get; set; }
         public string? Name { get; set; }
         public string? Adress { get; set; }
