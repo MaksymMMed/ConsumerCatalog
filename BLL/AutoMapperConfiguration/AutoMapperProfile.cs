@@ -12,6 +12,13 @@ namespace BLL.AutoMapperConfiguration
 {
     public class AutoMapperProfile: Profile
     {
+        protected AutoMapperProfile()
+        {
+            CreateConsumerProfile();
+            CreateUnitProfile();
+            CreateEnergyConsumerProfile();
+        }
+
         private void CreateConsumerProfile()
         {
             CreateMap<ConsumerRequest, Consumer>();
