@@ -13,11 +13,11 @@ namespace BLL.Services.Interfaces
     public interface IEnergyConsumeService
     {
         Task<IEnumerable<EnergyConsumeResponse>> GetAsync();
-        Task<PagedList<EnergyConsumeResponse>> GetAsync(UnitParameters parameters);
+        Task<PagedList<EnergyConsumeResponse>> GetAsync(EnergyConsumeParameters parameters);
         Task<EnergyConsumeResponse> GetCompleteEntityById(int id);
         Task<EnergyConsumeResponse> GetByIdAsync(int id);
-        Task InsertAsync(UnitRequest request);
-        Task UpdateAsync(UnitRequest request);
+        Task InsertAsync(EnergyConsumeRequest request);
+        Task UpdateAsync(EnergyConsumeRequest request);
         Task DeleteAsync(int id);
     }
 }

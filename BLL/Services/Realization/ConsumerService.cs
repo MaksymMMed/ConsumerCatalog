@@ -35,24 +35,26 @@ namespace BLL.Services.Realization
         {
             var items = await UnitOfWork.consumerRepository.GetAsync();
             return items.Select(mapper.Map<Consumer, ConsumerResponse>);
+            //return mapper.Map<IEnumerable<Consumer>,IEnumerable<ConsumerResponse>>(items);
         }
 
         public async Task<PagedList<ConsumerResponse>> GetAsync(ConsumerParameters parameters)
         {
             var items = await UnitOfWork.consumerRepository.GetAsync(parameters);
             return items.Map(mapper.Map<Consumer, ConsumerResponse>);
+            //return items.Map(mapper.Map<ConsumerResponse>);
         }
 
         public async Task<ConsumerResponse> GetByIdAsync(int id)
         {
             var item = await UnitOfWork.consumerRepository.GetByIdAsync(id);
-            return mapper.Map<Consumer, ConsumerResponse>(item);
+            return mapper.Map<ConsumerResponse>(item);
         }
 
         public async Task<ConsumerResponse> GetCompleteEntityById(int id)
         {
             var item = await UnitOfWork.consumerRepository.GetCompleteEntityAsync(id);
-            return mapper.Map<Consumer, ConsumerResponse>(item);
+            return mapper.Map<ConsumerResponse>(item);
 
         }
 

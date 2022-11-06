@@ -17,12 +17,10 @@ namespace API.Controllers
     public class ConsumerController : ControllerBase
     {
         private readonly IConsumerService consumerService;
-        private readonly IConsumerRepository consumerRepository;
 
-        public ConsumerController(IConsumerService consumerService,IConsumerRepository consumerRepository)
+        public ConsumerController(IConsumerService consumerService)
         {
             this.consumerService = consumerService;
-            this.consumerRepository = consumerRepository;
         }
 
         [HttpGet("GetCompleteEntityById")]
@@ -47,17 +45,12 @@ namespace API.Controllers
 
         [HttpGet("GetConsumers")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable <ConsumerResponse>>> GetConsumersAync()
         {
             try
             {
                 return Ok(await consumerService.GetAsync());
-            }
-            catch (EntityNotFoundException e)
-            {
-                return NotFound(new { e.Message });
             }
             catch (Exception e)
             {
@@ -67,7 +60,6 @@ namespace API.Controllers
 
         [HttpGet("GetConsumersPagedList")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<PagedList<ConsumerResponse>>> GetConsumersPagedListAync([FromQuery] ConsumerParameters parameters)
         {
@@ -76,10 +68,6 @@ namespace API.Controllers
                 var item = await consumerService.GetAsync(parameters);
                 Response.Headers.Add("X-Pagination", item.SerializeMetadata());
                 return Ok(item);
-            }
-            catch (EntityNotFoundException e)
-            {
-                return NotFound(new { e.Message });
             }
             catch (Exception e)
             {
