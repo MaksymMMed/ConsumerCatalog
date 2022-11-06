@@ -1,4 +1,5 @@
 ﻿using API.Extensions;
+using BLL.DTO.Request;
 using BLL.DTO.Response;
 using BLL.Services.Interfaces;
 using DAL.Exceptions;
@@ -116,6 +117,64 @@ namespace API.Controllers
             try
             {
                 return Ok(await consumerService.GetConsumesAsync(id));
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new { e.Message });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
+        }
+
+        [HttpPost("AddConsumer")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> AddConsumes([FromQuery] ConsumerRequest consumer)
+        {
+            try
+            {
+                await consumerService.InsertAsync(consumer);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
+        }
+
+        [HttpPut("UpdateConsumer")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> UpdateConsumer([FromQuery] ConsumerRequest consumer)
+        {
+            try
+            {
+                await consumerService.UpdateAsync(consumer);
+                return Ok();
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new { e.Message });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
+        }
+
+        [HttpDelete("DeleteConsumer")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> DeleteConsumer(int id)
+        {
+            try
+            {
+                await consumerService.DeleteAsync(id);
+                return Ok();
             }
             catch (EntityNotFoundException e)
             {

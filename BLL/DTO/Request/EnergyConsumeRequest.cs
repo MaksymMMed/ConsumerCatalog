@@ -9,6 +9,7 @@ namespace BLL.DTO.Request
 {
     public class EnergyConsumeRequest
     {
+        public int? Id { get; set; }
         public int SizeDay { get; set; }
         public int SizeNight { get; set; }
         public DateTime Date { get; set; }

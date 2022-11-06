@@ -9,6 +9,7 @@ namespace BLL.DTO.Request
 {
     public class UnitRequest
     {
+        public int? Id { get; set; }
         public string? Name { get; set; }
         public string? Adress { get; set; }
         public int OwnerId { get; set; }

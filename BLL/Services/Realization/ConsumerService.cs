@@ -28,6 +28,7 @@ namespace BLL.Services.Realization
         public async Task DeleteAsync(int id)
         {
             await UnitOfWork.consumerRepository.DeleteAsync(id);
+            await UnitOfWork.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<ConsumerResponse>> GetAsync()
