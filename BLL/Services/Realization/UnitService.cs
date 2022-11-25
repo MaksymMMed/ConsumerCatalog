@@ -55,6 +55,18 @@ namespace BLL.Services.Realization
             return mapper.Map<Unit, UnitResponse>(item);
         }
 
+        public async Task<IEnumerable<EnergyConsumeResponse>> GetEnergyConsumes(int id)
+        {
+            var items = await UnitOfWork.unitRepository.GetEnergyConsumes(id);
+            return items.Select(mapper.Map<EnergyConsume, EnergyConsumeResponse>);
+        }
+
+        public async Task<IEnumerable<IssueResponse>> GetIssues(int id)
+        {
+            var items = await UnitOfWork.unitRepository.GetIssues(id);
+            return items.Select(mapper.Map<Issue, IssueResponse>);
+        }
+
         public async Task InsertAsync(UnitRequest request)
         {
             var item = mapper.Map<UnitRequest, Unit>(request);

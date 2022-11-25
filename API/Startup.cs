@@ -5,6 +5,7 @@ using DAL.Repositories.Interfaces;
 using DAL.Repositories.Realization;
 using DAL.Repositories.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
@@ -20,6 +21,8 @@ public class Startup
         Services.AddDbContext<UnitContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("UnitContext")));
 
+        Services.AddMemoryCache();
+
         Services.AddTransient<IConsumerRepository, ConsumerRepository>();
         Services.AddTransient<IUnitRepository, UnitRepository>();
         Services.AddTransient<IEnergyConsumeRepository, EnergyConsumeRepository>();
@@ -27,6 +30,8 @@ public class Startup
         Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
         Services.AddTransient<IConsumerService, ConsumerService>();
+        Services.AddTransient<IUnitService, UnitService>();
+        Services.AddTransient<IEnergyConsumeService, EnergyConsumeService>();
 
         Services.AddControllers().AddJsonOptions(x =>
                  x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

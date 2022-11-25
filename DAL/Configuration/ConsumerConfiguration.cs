@@ -33,6 +33,5 @@ namespace DAL.Configuration
             
             new ConsumerSeeder().Seeding(modelBuilder);
         }
-
     }
 }

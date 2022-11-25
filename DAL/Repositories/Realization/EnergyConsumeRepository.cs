@@ -4,6 +4,7 @@ using DAL.Pagination;
 using DAL.Parameters;
 using DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace DAL.Repositories.Realization
 {
     public class EnergyConsumeRepository : GenericRepository<EnergyConsume>, IEnergyConsumeRepository
     {
-        public EnergyConsumeRepository(UnitContext databaseContext) : base(databaseContext)
+        public EnergyConsumeRepository(UnitContext databaseContext, IMemoryCache memoryCache) : base(databaseContext, memoryCache)
         {
         }
 

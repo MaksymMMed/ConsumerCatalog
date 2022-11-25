@@ -13,5 +13,7 @@ namespace DAL.Repositories.Interfaces
     public interface IUnitRepository:IRepository<Unit>
     {
         public Task<PagedList<Unit>> GetAsync(UnitParameters parameters);
+        public Task<IEnumerable<Issue>> GetIssues(int id);
+        public Task<IEnumerable<EnergyConsume>> GetEnergyConsumes(int id);
     }
 }

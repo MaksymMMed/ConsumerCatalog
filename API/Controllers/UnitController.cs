@@ -2,6 +2,7 @@
 using BLL.DTO.Request;
 using BLL.DTO.Response;
 using BLL.Services.Interfaces;
+using BLL.Services.Realization;
 using DAL.Exceptions;
 using DAL.Pagination;
 using DAL.Parameters;
@@ -32,6 +33,46 @@ namespace API.Controllers
             catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,e.Message);
+            }
+        }
+
+        [HttpGet("GetIssuesOfUnit")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<IssueResponse>>> GetIssuesOfUnit(int id)
+        {
+            try
+            {
+                return Ok(await unitService.GetIssues(id));
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new { e.Message });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
+        }
+
+        [HttpGet("GetConsumeOfUnit")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<IssueResponse>>> GetConsumeOfUnit(int id)
+        {
+            try
+            {
+                return Ok(await unitService.GetEnergyConsumes(id));
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new { e.Message });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
             }
         }
 
@@ -89,7 +130,7 @@ namespace API.Controllers
             }
         }
 
-        [HttpPut("DeleteUnit")]
+        [HttpDelete("DeleteUnit")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

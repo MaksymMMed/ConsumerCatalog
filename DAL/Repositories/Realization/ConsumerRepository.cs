@@ -5,6 +5,7 @@ using DAL.Parameters;
 using DAL.Repositories.Interfaces;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace DAL.Repositories.Realization
 {
     public class ConsumerRepository : GenericRepository<Consumer>, IConsumerRepository
     {
-        public ConsumerRepository(UnitContext databaseContext) : base(databaseContext)
+        public ConsumerRepository(UnitContext databaseContext, IMemoryCache memoryCache) : base(databaseContext, memoryCache)
         {
         }
 

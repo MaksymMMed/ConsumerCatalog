@@ -4,6 +4,7 @@ using DAL.Pagination;
 using DAL.Parameters;
 using DAL.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,20 @@ namespace DAL.Repositories.Realization
 {
     public class UnitRepository : GenericRepository<Unit>, IUnitRepository
     {
-        public UnitRepository(UnitContext databaseContext) : base(databaseContext)
+        public UnitRepository(UnitContext databaseContext, IMemoryCache memoryCache) : base(databaseContext, memoryCache)
         {
+        }
+
+        public async Task<IEnumerable<Issue>> GetIssues(int id)
+        {
+            var unit = await table.Where(x => x.Id == id).Include(x=>x.Issues).FirstAsync();
+            return unit.Issues;
+        }
+
+        public async Task<IEnumerable<EnergyConsume>> GetEnergyConsumes(int id)
+        {
+            var unit = await table.Where(x => x.Id == id).Include(x => x.ConsumeEnergy).FirstAsync();
+            return unit.ConsumeEnergy;
         }
 
         public async Task<PagedList<Unit>> GetAsync(UnitParameters parameters)
@@ -61,5 +74,7 @@ namespace DAL.Repositories.Realization
 
             source = source.Where(item => item.OwnerId == OwnerId);
         }
+
+        
     }
 }

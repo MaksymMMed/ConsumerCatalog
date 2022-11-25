@@ -17,6 +17,7 @@ namespace DAL
         public DbSet<Consumer> Consumer { get; set; }
         public DbSet<Unit> Unit  { get; set; }
         public DbSet<EnergyConsume> EnergyConsume { get; set; }
+        public DbSet<Issue> Issue { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -24,6 +25,7 @@ namespace DAL
             modelBuilder.ApplyConfiguration(new ConsumerConfiguration());
             modelBuilder.ApplyConfiguration(new UnitConfiguration());
             modelBuilder.ApplyConfiguration(new EnergyConsumeConfiguration());
+            modelBuilder.ApplyConfiguration(new IssueConfiguration());
         }
     }
 }

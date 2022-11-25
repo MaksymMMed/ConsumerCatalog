@@ -43,6 +43,26 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("GetConsumerById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<ConsumerResponse>> GetConsumerByIdAsync(int id)
+        {
+            try
+            {
+                return Ok(await consumerService.GetByIdAsync(id));
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new { e.Message });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
+            }
+        }
+
         [HttpGet("GetConsumers")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

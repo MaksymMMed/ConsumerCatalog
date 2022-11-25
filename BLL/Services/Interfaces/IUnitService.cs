@@ -16,6 +16,8 @@ namespace BLL.Services.Interfaces
         Task<PagedList<UnitResponse>> GetAsync(UnitParameters parameters);
         Task<UnitResponse> GetCompleteEntityById(int id);
         Task<UnitResponse> GetByIdAsync(int id);
+        Task<IEnumerable<IssueResponse>> GetIssues(int id);
+        Task<IEnumerable<EnergyConsumeResponse>> GetEnergyConsumes(int id);
         Task InsertAsync(UnitRequest request);
         Task UpdateAsync(UnitRequest request);
         Task DeleteAsync(int id);

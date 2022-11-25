@@ -3876,6 +3876,46 @@ namespace DAL.Migrations
                         });
                 });
 
+            modelBuilder.Entity("DAL.Entities.Issue", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("UnitId1")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UnitId1");
+
+                    b.ToTable("Issue");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Title = "Repair"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Title = "Repair"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Title = "Repair"
+                        });
+                });
+
             modelBuilder.Entity("DAL.Entities.Unit", b =>
                 {
                     b.Property<int>("Id")
@@ -5317,6 +5357,15 @@ namespace DAL.Migrations
                     b.Navigation("Unit");
                 });
 
+            modelBuilder.Entity("DAL.Entities.Issue", b =>
+                {
+                    b.HasOne("DAL.Entities.Unit", "Unit")
+                        .WithMany("Issues")
+                        .HasForeignKey("UnitId1");
+
+                    b.Navigation("Unit");
+                });
+
             modelBuilder.Entity("DAL.Entities.Unit", b =>
                 {
                     b.HasOne("DAL.Entities.Consumer", "Owner")
@@ -5336,6 +5385,8 @@ namespace DAL.Migrations
             modelBuilder.Entity("DAL.Entities.Unit", b =>
                 {
                     b.Navigation("ConsumeEnergy");
+
+                    b.Navigation("Issues");
                 });
 #pragma warning restore 612, 618
         }

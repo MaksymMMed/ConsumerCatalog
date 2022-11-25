@@ -27,11 +27,17 @@ namespace BLL.AutoMapperConfiguration
             CreateMap<UnitRequest, Unit>();
             CreateMap<Unit, UnitResponse>();
         }
+
+        private void CreateIssueProfile()
+        {
+            CreateMap<Issue,IssueResponse>();
+        }
         public AutoMapperProfile()
         {
             CreateConsumerProfile();
             CreateUnitProfile();
             CreateEnergyConsumerProfile();
+            CreateIssueProfile();
         }
     }
 }

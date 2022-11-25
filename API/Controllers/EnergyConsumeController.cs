@@ -91,7 +91,7 @@ namespace API.Controllers
             }
         }
 
-        [HttpPut("DeleteEnergyConsume")]
+        [HttpDelete("DeleteEnergyConsume")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

@@ -11,12 +11,14 @@ namespace DAL.Entities
         public Unit()
         {
             ConsumeEnergy = new();
+            Issues = new();
         }
         public int Id { get; set; }
-        public string? Name { get; set; }
-        public string? Adress { get; set; }
+        public string Name { get; set; }
+        public string Adress { get; set; }
         public int OwnerId { get; set; }
         public Consumer? Owner { get; set; }
         public List<EnergyConsume>? ConsumeEnergy { get; set; }
+        public List<Issue>? Issues { get; set; }
     }
 }

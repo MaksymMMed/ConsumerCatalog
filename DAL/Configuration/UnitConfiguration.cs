@@ -30,6 +30,10 @@ namespace DAL.Configuration
             modelBuilder
                 .HasOne(x => x.Owner)
                 .WithMany(x => x.OwnedUnit);
+
+            modelBuilder
+                .HasMany(x => x.Issues)
+                .WithOne(x => x.Unit);
             
             new UnitSeeder().Seeding(modelBuilder);
         }
