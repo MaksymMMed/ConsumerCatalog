@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "fTn+IzooEcGtSom7aJ1oG1fxk/b/Rg7Xe4ZnVxTTenKW2Bt/5chd/YdfmGwtHNybMuBCTlLX4THdePTpyFeJjw==",
+  "dgSpecHash": "RcEmxmA3lUbkMJgUjFYYK1sxj1h1U1k9QFyB4sRaQ9iZbqXqkJPwxWXpME+nSQF2dp9CprbZgYgnsKay4KcVDg==",
   "success": true,
   "projectFilePath": "C:\\Users\\МІША\\Desktop\\ConsumerCatalog\\API\\API.csproj",
   "expectedPackageFiles": [
@@ -77,6 +77,7 @@
     "C:\\Users\\МІША\\.nuget\\packages\\microsoft.net.http.headers\\2.2.0\\microsoft.net.http.headers.2.2.0.nupkg.sha512",
     "C:\\Users\\МІША\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\МІША\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\МІША\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.17.0\\microsoft.visualstudio.azure.containers.tools.targets.1.17.0.nupkg.sha512",
     "C:\\Users\\МІША\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\МІША\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\МІША\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
