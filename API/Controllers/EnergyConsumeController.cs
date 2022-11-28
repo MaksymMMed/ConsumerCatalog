@@ -22,21 +22,6 @@ namespace API.Controllers
             this.energyConsumeService = energyConsumeService;
         }
 
-        [HttpGet("GetEnergyConsumes")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<EnergyConsumeResponse>>> GetEnergyConsumes()
-        {
-            try
-            {
-                return Ok(await energyConsumeService.GetAsync());
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
-            }
-        }
-
         [HttpGet("GetEnergyConsumesPagedList")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

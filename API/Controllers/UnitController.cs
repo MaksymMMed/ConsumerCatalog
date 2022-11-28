@@ -21,21 +21,6 @@ namespace API.Controllers
         }
         private readonly IUnitService unitService;
 
-        [HttpGet("GetUnits")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<UnitResponse>>> GetUnits()
-        {
-            try
-            {
-                return Ok(await unitService.GetAsync());
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,e.Message);
-            }
-        }
-
         [HttpGet("GetIssuesOfUnit")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]

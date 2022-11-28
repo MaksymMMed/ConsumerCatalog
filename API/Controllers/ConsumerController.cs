@@ -23,11 +23,11 @@ namespace API.Controllers
             this.consumerService = consumerService;
         }
 
-        [HttpGet("GetCompleteEntityById")]
+        [HttpGet("GetConsumerById")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ConsumerResponse>> GetCompleteByIdAsync(int id)
+        public async Task<ActionResult<ConsumerResponse>> GetConsumerById(int id)
         {
             try
             {
@@ -43,27 +43,7 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("GetConsumerById")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<ConsumerResponse>> GetConsumerByIdAsync(int id)
-        {
-            try
-            {
-                return Ok(await consumerService.GetByIdAsync(id));
-            }
-            catch (EntityNotFoundException e)
-            {
-                return NotFound(new { e.Message });
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
-            }
-        }
-
-        [HttpGet("GetConsumers")]
+        /*[HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<IEnumerable <ConsumerResponse>>> GetConsumersAync()
@@ -76,7 +56,7 @@ namespace API.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new { e.Message });
             }
-        }
+        }*/
 
         [HttpGet("GetConsumersPagedList")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -139,7 +119,7 @@ namespace API.Controllers
         [HttpPost("AddConsumer")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> AddConsumes([FromQuery] ConsumerRequest consumer)
+        public async Task<ActionResult> AddConsumer([FromQuery] ConsumerRequest consumer)
         {
             try
             {
